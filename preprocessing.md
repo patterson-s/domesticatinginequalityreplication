@@ -1,10 +1,7 @@
 # Overview:
 
-Operations were performed on version 5.0 of the United Nations General
-Debate Corpus (UNGDC)
-
-This section includes pre-processing steps for the UNGDC corpus. The
-steps include:
+This section includes pre-processing steps for the United Nations
+General Debate Corpus (UNGDC). The steps include:
 
 1)  Load packages to library
 2)  Load the UNGDC corpus
@@ -12,6 +9,8 @@ steps include:
 4)  Remove speeches from 1970 because of incomplete data
 5)  Transliteration text to ensure all characters are in ASCII
 6)  Create unnested token object; remove stopwords and numbers
+
+Operations were performed on version 5.0 of the UNGDC
 
 The original data can be downloaded from the following link:
 <https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/0TJX8Y>
@@ -65,6 +64,9 @@ This step ensures that all characters are in a unifirm, ASCII encoding.
 ``` r
 ungdc18_base %<>%
   mutate(translit = stri_trans_general(text, "Latin-ASCII"))
+
+# save as object for fast loading; save object as "ungdc18"
+#write.csv(ungdc18_base, "ungdc18.csv")
 ```
 
 # 6)
@@ -83,3 +85,8 @@ ungdc_unnest <- ungdc18_base %>%
 ```
 
     ## Joining, by = "word"
+
+``` r
+# Save as object for fast loading
+#write.csv(ungdc_unnest, "ungdc_unnest.csv")
+```
