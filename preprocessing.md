@@ -15,6 +15,10 @@ Operations were performed on version 5.0 of the UNGDC
 The original data can be downloaded from the following link:
 <https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/0TJX8Y>
 
+# OUTPUT objects:
+
+`ungdc18.csv` `ungdc_unnest`
+
 # 1)
 
 This step loads the necessary packages into the R library.
