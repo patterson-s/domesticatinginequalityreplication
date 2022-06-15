@@ -6,26 +6,29 @@ Debate Corpus (UNGDC)
 This section includes pre-processing steps for the UNGDC corpus. The
 steps include:
 
-1.  Loading the corpus.
-2.  Building `iso` (or country) and `year` variables from the document
-    titles.
-3.  Filtering out the speeches from 1970, since that year is incomplete.
-4.  Transliterating the speech text so that all characters are
-    ASCII-encoded.
+1)  Load packages to library
+2)  Load the UNGDC corpus
+3)  Create `iso` and `year` variables from document titles.
+4)  Remove speeches from 1970 because of incomplete data
+5)  Transliteration text to ensure all characters are in ASCII
+6)  Create unnested token object; remove stopwords and numbers
 
-The data can be downloaded from the following link:
+The original data can be downloaded from the following link:
 <https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/0TJX8Y>
 
-# Load packages to library
+# 1)
+
+This step loads the necessary packages into the R library.
 
 ``` r
-pacman::p_load(tidyverse, magrittr, stringi)
+pacman::p_load(tidyverse, magrittr, stringi, tidytext)
 ```
 
-# Load and Pre-process the UNGDC data
+# 2)
+
+This step loads the base corpus, UNGDC version 5.0
 
 ``` r
-# Load UNGDC data ----
 ungdc18_base <- read_csv("ungdc18_base.csv", 
     col_types = cols(...1 = col_skip()))
 ```
@@ -33,8 +36,12 @@ ungdc18_base <- read_csv("ungdc18_base.csv",
     ## New names:
     ## * `` -> ...1
 
+# 3)
+
+This step splits the document titles to create `iso` and `year`
+variables, so that the data can be subset by state and time.
+
 ``` r
-# Create `iso` and `year` variables from document titles ----
 ungdc18_base %<>% 
   separate(col = doc_id, into = c("iso", "session", "year", sep = "_"), remove = FALSE) %>% 
   select(index, doc_id, iso, year, text)
@@ -42,26 +49,37 @@ ungdc18_base %<>%
 
     ## Warning: One or more parsing issues, see `problems()` for details
 
-``` r
-# Remove speeches from 1970 because of incomplete data ----
-ungdc18_base$year <- as.numeric(ungdc18_base$year) 
+# 4)
 
+We remove the 1970 data because it is incomplete.
+
+``` r
+ungdc18_base$year <- as.numeric(ungdc18_base$year) 
 ungdc18_base %<>% filter(year > 1970)
 ```
 
-# Transliteration text to ensure all characters are in ASCII
+# 5)
+
+This step ensures that all characters are in a unifirm, ASCII encoding.
 
 ``` r
-# Transliterate the text using `stri_trans_general` from the `stringi` package
 ungdc18_base %<>%
   mutate(translit = stri_trans_general(text, "Latin-ASCII"))
 ```
 
-# Conclusion:
+# 6)
 
-The result of these processes is a version of the UNGDC corpus that
-contains the following variables: 1) `index` : the numeric position of
-each speech. 2) `doc_id`: the title of each document, as listed in the
-UNGDC corpus. 3) `iso`: the state that delivers each speech. 4) `year`:
-the year in which the speech was delivered. 5) `text`: the raw text of
-the speech. 6) `translit`: the ASCII-transliterated text of each speech.
+This step tokenizes the text, removes stopwords from the `tidytext`
+list, and removes number tokens. This is the object that will be used to
+compute Concept Mover Distance values.
+
+``` r
+ungdc_unnest <- ungdc18_base %>%
+   unnest_tokens(word, translit, to_lower = TRUE) %>% # tokenizes corpus
+   anti_join(stop_words) %>% # rempval of `tidytext` stop words
+   filter(!str_detect(word, "[0-9]+") ) %>% # removal of numbers
+   count(doc_id, word) %>% # counts word frequencies and appends to `doc_id`
+   bind_tf_idf(word, doc_id, n) # computes term frequency - inverse document frequency for each term per document
+```
+
+    ## Joining, by = "word"
