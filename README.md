@@ -2,5 +2,4 @@
 ## Vincent Pouliot & Scott Robert Patterson 
 
 
-# Contents: 
-## 1) Pre-processing
+This document contains the replication materials for "Domesticating Inequality" by Vincent Pouliot & Scott Robert Patterson. 
