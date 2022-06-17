@@ -78,7 +78,7 @@ figure3_plot <- figure3_data %>%
 # 4) Figure 3 plot
 
 ``` r
-figure3_plot
+print(figure3_plot)
 ```
 
 ![](figures_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
