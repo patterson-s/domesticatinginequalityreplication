@@ -136,11 +136,7 @@ figure3c_plot <- figure3c_data %>%
   labs(title = "Proportion of Cluster Membership by Interval", subtitle = "Membership Assigned with 7-year Rolling Averages") + 
   xlab("Year") + 
   ylab("Proportion of Cluster Membership")
-
-figure3c_plot
 ```
-
-![](Figure3_alternate_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 # Plot figures
 
