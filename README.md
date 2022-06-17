@@ -5,7 +5,7 @@
 This document contains the replication materials for "Domesticating Inequality" by Vincent Pouliot & Scott Robert Patterson. 
 
 ## CONTENTS
-1) preprocessing - 
+1) preprocessing - [a link](https://github.com/patterson-s/domesticatinginequalityreplication/blob/main/preprocessing.md) 
 2) cmd computations
 3) figure 3 replication files 
 4) figure 3a alternate figures. 
