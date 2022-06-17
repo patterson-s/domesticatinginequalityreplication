@@ -8,3 +8,4 @@ This document contains the replication materials for "Domesticating Inequality" 
 1) preprocessing - 
 2) cmd computations
 3) figure 3 replication files 
+4) figure 3a alternate figures. 
