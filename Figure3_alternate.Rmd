@@ -1,23 +1,33 @@
-# 1) Library
+---
+title: "Figure3_alternate"
+date: '2022-06-17'
+output: 
+  md_document:
+    variant: gfm
+---
 
-``` r
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 1)  Library
+```{r}
 pacman::p_load(tidyverse,tidytext, magrittr, zoo, ggalluvial)
 set.seed(42)
 ```
 
-# 2) Load Data
 
-``` r
+# 2) Load Data
+```{r}
+
 # Load un_long ----
 un_long <- read_csv("un_long.csv", col_types = cols(...1 = col_skip()))
-```
 
-    ## New names:
-    ## * `` -> ...1
+```
 
 # Compute cluster membership at 3,5,7 year rolling means
 
-``` r
+```{r}
 # Compute cluster membership at 3,5,7 year rolling means ----
 un_roll357 <- un_long %>% 
   group_by(iso, year, sourcetext) %>% 
@@ -136,34 +146,32 @@ figure3c_plot <- figure3c_data %>%
   labs(title = "Proportion of Cluster Membership by Interval", subtitle = "Membership Assigned with 7-year Rolling Averages") + 
   xlab("Year") + 
   ylab("Proportion of Cluster Membership")
+
+
+
 ```
 
-# Plot figures
+# Plot figures 
 
-``` r
+```{r}
+
 # Figure 3a - 3 year rolling means ----
 figure3a_plot
-```
 
-![](Figure3_alternate_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
-
-``` r
 # Figure 3b - 5 year rolling means ----
 figure3b_plot
-```
 
-![](Figure3_alternate_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
-
-``` r
 # Figure 3c - 7 year rolling means ----
 figure3c_plot
 ```
 
-![](Figure3_alternate_files/figure-gfm/unnamed-chunk-4-3.png)<!-- -->
 
-# Alluvial figure
 
-``` r
+# Alluvial figure 
+
+```{r}
+
+
 figure3_alluvium <- figure3a_data %>% 
   ggplot(mapping = aes(x = year, alluvium = cluster, y = cluster_proportion, fill = cluster)) +
   geom_alluvium(aes(fill = cluster)) +
@@ -174,6 +182,8 @@ figure3_alluvium <- figure3a_data %>%
   theme_minimal()
 
 figure3_alluvium  
+
 ```
 
-![](Figure3_alternate_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+
