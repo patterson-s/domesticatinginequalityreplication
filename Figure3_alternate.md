@@ -13,7 +13,7 @@ un_long <- read_csv("un_long.csv", col_types = cols(...1 = col_skip()))
 ```
 
     ## New names:
-    ## * `` -> ...1
+    ## * `` -> `...1`
 
 # Compute cluster membership at 3,5,7 year rolling means
 
@@ -61,7 +61,7 @@ figure3a_plot <- figure3a_data %>%
   ggplot(mapping = aes(x = year, y = cluster_proportion, fill = cluster)) +
   geom_bar(stat = "identity") +
   scale_fill_brewer(palette = "RdYlBu") + 
-  labs(title = "Proportion of Cluster Membership by Interval", subtitle = "Membership Assigned with 3-year Rolling Averages") + 
+  labs(title = "Proportion of Cluster Membership by Year", subtitle = "Membership Assigned with 3-year Rolling Averages") + 
   xlab("Year") + 
   ylab("Proportion of Cluster Membership")
 
@@ -97,7 +97,7 @@ figure3b_plot <- figure3b_data %>%
   ggplot(mapping = aes(x = year, y = cluster_proportion, fill = cluster)) +
   geom_bar(stat = "identity") +
   scale_fill_brewer(palette = "RdYlBu") + 
-  labs(title = "Proportion of Cluster Membership by Interval", subtitle = "Membership Assigned with 5-year Rolling Averages") + 
+  labs(title = "Proportion of Cluster Membership by Year", subtitle = "Membership Assigned with 5-year Rolling Averages") + 
   xlab("Year") + 
   ylab("Proportion of Cluster Membership")
 
@@ -133,7 +133,7 @@ figure3c_plot <- figure3c_data %>%
   ggplot(mapping = aes(x = year, y = cluster_proportion, fill = cluster)) +
   geom_bar(stat = "identity") +
   scale_fill_brewer(palette = "RdYlBu") + 
-  labs(title = "Proportion of Cluster Membership by Interval", subtitle = "Membership Assigned with 7-year Rolling Averages") + 
+  labs(title = "Proportion of Cluster Membership by Year", subtitle = "Membership Assigned with 7-year Rolling Averages") + 
   xlab("Year") + 
   ylab("Proportion of Cluster Membership")
 ```
@@ -168,7 +168,7 @@ figure3_alluvium <- figure3a_data %>%
   ggplot(mapping = aes(x = year, alluvium = cluster, y = cluster_proportion, fill = cluster)) +
   geom_alluvium(aes(fill = cluster)) +
   scale_fill_brewer(palette = "RdYlBu") + 
-  labs(title = "Proportion of Cluster Membership by Interval", subtitle = "Membership Assigned with 3-year Rolling Averages") + 
+  labs(title = "Proportion of Cluster Membership by Year", subtitle = "Membership Assigned with 3-year Rolling Averages") + 
   xlab("Year") + 
   ylab("Proportion of Cluster Membership") +
   theme_minimal()
